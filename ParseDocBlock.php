@@ -4,6 +4,8 @@
  * @version 1.0
  * @package ParseDocBlock
  * @author SyuaaSE
+ * @license MIT License
+ *      http://opensource.org/licenses/MIT
  */
 
 class ParseDocBlock
@@ -50,7 +52,7 @@ class ParseDocBlock
             if( preg_match( '!^\/\*{2,}$!', $line ) || preg_match( '!^\*{1,}\/$!', $trim_line ) )
                 continue;
             
-            // New key @{Key} {Values}
+            // New key @{Key} {Value[s]}
             if( preg_match( '!^[ *]*@([\w_]+) (.*)!', $line, $match ) ){
             
                 if( isset( $this->result[$this->key] ) ){
@@ -81,7 +83,7 @@ class ParseDocBlock
                     
                 }
                 
-                // @{param} {Type} {Name} {Description, Default value.}
+                // @param {Type} {Name} {Description, Default value.}
                 if( $match[1] == 'param' ){
                     if( preg_match( '!([\w|]+) ([\w]+) (.+)!', $match[2], $matc ) ){
                         $default = '';
