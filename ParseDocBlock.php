@@ -1,7 +1,7 @@
 <?php
 /**
  * Documentation block parser.
- * @version 1.0
+ * @version 1.1
  * @package ParseDocBlock
  * @author SyuaaSE
  * @license MIT License
@@ -100,11 +100,10 @@ class ParseDocBlock
                 
                 // @return {Type} {Description}
                 }elseif( $match[1] == 'return' ){
-                    if( preg_match( '!([\w|]+) (.+)!', $match[2], $mat ) ) {
-                        $this->result[$this->key] = array(
-                            'type'          => $mat[1],
-                            'description'   => $mat[2]
-                        );
+                    if( preg_match( '!([\w|]+) ?(.+)?!', $match[2], $mat ) ) {
+                        $this->result[$this->key] = array( 'type' => $mat[1] );
+                        if( isset( $mat[2] ) )
+                            $this->result[$this->key]['description'] = $mat[2];
                     }
                 
                 // @example {Number} {Title}
